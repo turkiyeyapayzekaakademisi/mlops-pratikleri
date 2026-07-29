@@ -1,0 +1,14 @@
+stages:
+  prepare:
+    cmd: python src/prepare_data.py
+    deps:
+    - data/raw/breast_cancer.csv
+    - src/prepare_data.py
+    params:
+    - split.random_state
+    - split.test_size
+    - split.validation_size
+    outs:
+    - data/processed/validation.csv
+    - data/processed/test.csv
+    - data/processed/train.csv

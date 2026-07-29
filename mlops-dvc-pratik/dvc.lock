@@ -1,0 +1,31 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare_data.py
+    deps:
+    - path: data/raw/breast_cancer.csv
+      hash: md5
+      md5: 4b5daec514807cc6769a67a645fdc124
+      size: 124133
+    - path: src/prepare_data.py
+      hash: md5
+      md5: 77ab8cc53cf6e069261c65609e69287e
+      size: 2219
+    params:
+      params.yaml:
+        split.random_state: 21
+        split.test_size: 0.2
+        split.validation_size: 0.2
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 639c89e5da641bf97f2e3c24ae5172a9
+      size: 25219
+    - path: data/processed/train.csv
+      hash: md5
+      md5: b0af97acfaa697e63a6775529476b22b
+      size: 74678
+    - path: data/processed/validation.csv
+      hash: md5
+      md5: fb162d7ddea1280f634594edddc15e25
+      size: 25242
