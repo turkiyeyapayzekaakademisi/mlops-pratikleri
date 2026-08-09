@@ -1,0 +1,30 @@
+services:
+  # diabates ml servisi
+  diabetes-api:
+    image: diabetes-api:1.1
+    container_name: diabetes-api-container
+    ports:
+      - "8000:8000"
+    volumes:
+      - diabetes-model-volume:/app/artifacts
+    networks:
+      - ml-network
+
+  # breast cancer ml servisi
+  breast-cancer-api:
+    image: breast-cancer-api:latest
+    container_name: breast-cancer-api-container
+    ports:
+      - "8001:8000"
+    networks:
+      - ml-network
+
+# Docker volume
+volumes:
+  diabetes-model-volume:
+    external: true
+
+# Docker network
+networks:
+  ml-network:
+    driver: bridge
