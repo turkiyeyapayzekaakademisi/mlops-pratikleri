@@ -1,0 +1,11 @@
+pandas
+scikit-learn
+joblib
+fastapi
+uvicorn[standard]
+pydantic
+pytest
+httpx
+ruff
+prometheus-client
+evidently

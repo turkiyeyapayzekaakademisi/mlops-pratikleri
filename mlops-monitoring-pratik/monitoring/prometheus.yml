@@ -1,0 +1,11 @@
+global: # Prometheus'un genel ayarlarını tanımlar
+  scrape_interval: 15s # Her 15 saniyede bir metric toplar
+
+scrape_configs: # Prometheus'un izleyeceği servisleri tanımlar
+  - job_name: "render-fastapi" # Render FastAPI servisimize isim verir
+    scheme: https # Render'a HTTPS üzerinden bağlanır
+    metrics_path: /metrics # Metric'lerin bulunduğu endpoint'i belirtir
+
+    static_configs: # Sabit target adreslerini tanımlar
+      - targets: # İzlenecek servisleri listeler
+          - "mlops-deployment-api.onrender.com" # Canlı Render API adresimizi belirtir
