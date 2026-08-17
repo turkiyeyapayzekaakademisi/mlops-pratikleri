@@ -1,0 +1,37 @@
+services: # Docker Compose servislerini tanımlar
+
+  prometheus: # Prometheus servisini oluşturur
+    image: prom/prometheus:latest # Resmi Prometheus image'ını kullanır
+    container_name: mlops-prometheus # Container ismini belirler
+
+    ports: # Port bağlantılarını tanımlar
+      - "9090:9090" # localhost:9090 adresini Prometheus'a yönlendirir
+
+    volumes: # Container'a bağlanacak dosya ve diskleri tanımlar
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro # Bizim configuration dosyamızı container'a bağlar
+      - prometheus-data:/prometheus # Prometheus verilerini kalıcı olarak saklar
+
+    command: # Prometheus'un başlangıç parametrelerini belirler
+      - "--config.file=/etc/prometheus/prometheus.yml" # Bizim prometheus.yml dosyamızı kullanmasını sağlar
+      - "--storage.tsdb.path=/prometheus" # Metric verilerinin saklanacağı klasörü belirler
+
+    restart: unless-stopped # Manuel durdurulmadıkça yeniden başlatılmasını sağlar
+
+  grafana: 
+    image: grafana/grafana:latest 
+    container_name: mlops-grafana
+
+    ports: 
+      - "3000:3000"
+
+    volumes:
+      - grafana-data:/var/lib/grafana
+
+    depends_on:
+      - prometheus  
+
+    restart: unless-stopped
+
+volumes: # Kalıcı Docker volume'larını tanımlar
+  prometheus-data: # Prometheus verileri için volume oluşturur
+  grafana-data: 
